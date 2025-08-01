@@ -20,25 +20,27 @@ class ChangeDataInAppBarHome extends StatelessWidget {
         ),
         actions: [Icon(Icons.sunny),SizedBox(width: 10.w,)],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircleAvatarImage(),
-          SizedBox(height: 10.h,),
-          Divider(
-            thickness: 2.r,
-            indent: 30.w,
-            endIndent: 30.w,
-            color: AppColors.mainColor,
-          ),
-          SizedBox(height: 10.h,),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35),
-          child: SizedBox(
-            child: EditNameUser(),
-          ),
-        )
-        ],
+      body: Padding(
+        padding:  EdgeInsets.only(top: 100.h),
+        child: Column(
+          children: [
+            CircleAvatarImage(),
+            SizedBox(height: 10.h,),
+            Divider(
+              thickness: 2.r,
+              indent: 30.w,
+              endIndent: 30.w,
+              color: AppColors.mainColor,
+            ),
+            SizedBox(height: 10.h,),
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 35.w),
+            child: SizedBox(
+              child: EditNameUser(),
+            ),
+          )
+          ],
+        ),
       ),
     );
   }

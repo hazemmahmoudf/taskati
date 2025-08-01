@@ -4,21 +4,38 @@ import 'package:taskati/features/home/models/task_model.dart';
 
 import '../../../core/theme/app_colors.dart';
 
-class AddTaskListView extends StatelessWidget {
+class AddTaskListView extends StatefulWidget {
   const AddTaskListView({super.key});
 
   @override
+  State<AddTaskListView> createState() => _AddTaskListViewState();
+}
+
+class _AddTaskListViewState extends State<AddTaskListView> {
+  @override
   Widget build(BuildContext context) {
-    return (TaskModel.tasks.isEmpty)?
-        Center(
+    if ((TaskModel.tasks.isEmpty)) {
+      return Center(
       child:ClipRRect(
         child: Image.asset("assets/images/empty.png",fit: BoxFit.cover,),
       ),
-    ):
-    Expanded(
+    );
+    } else {
+      return Expanded(
       child: ListView.separated(itemBuilder: (context,index)=>IntrinsicHeight(
         child: Dismissible(key: UniqueKey(),
+          confirmDismiss: (d)async{
+          setState(() {
+            if (d == DismissDirection.endToStart) {
+              TaskModel.tasks[index].status = "complete";
+            } else if (d == DismissDirection.startToEnd) {
+              TaskModel.tasks.remove(TaskModel.tasks[index]);
+            }
+          });
+          return null;
+          },
         background: Container(
+
           color: Colors.red,
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -33,6 +50,7 @@ class AddTaskListView extends StatelessWidget {
         child: TaskItem(taskModel:TaskModel.tasks[index])),
       ), separatorBuilder:(context,index)=>SizedBox(height: 5.h,) , itemCount:TaskModel.tasks.length),
     );
+    }
   }
 }
 

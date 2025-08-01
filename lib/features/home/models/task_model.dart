@@ -5,7 +5,7 @@ class TaskModel {
   final String? description;
   final String? startTime;
   final String? endTime;
-  late final String? status;
+  late  String? status;
   final Color? taskColor;
   final String? date;
 

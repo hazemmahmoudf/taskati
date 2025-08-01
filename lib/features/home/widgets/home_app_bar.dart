@@ -3,12 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskati/core/Extensions/navigator_push.dart';
 import 'package:taskati/features/change_app_bar_home/change_data_in_app_bar_home.dart';
+import 'package:taskati/features/change_app_bar_home/models/edit_model.dart';
 
 import '../../../core/theme/app_colors.dart';
 
-class HomeAppBar extends StatelessWidget {
+class HomeAppBar extends StatefulWidget {
   const HomeAppBar({super.key});
 
+  @override
+  State<HomeAppBar> createState() => _HomeAppBarState();
+}
+
+class _HomeAppBarState extends State<HomeAppBar> {
+  @override
+  void didChangeDependencies() {
+    setState(() {
+
+    });
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -17,7 +30,7 @@ class HomeAppBar extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Hello, hazem",style: TextStyle(
+            Text("Hello, ${EditModel.name}",style: TextStyle(
                 fontSize: 18.sp,
                 color: AppColors.mainColor,
                 fontWeight: FontWeight.bold
@@ -34,7 +47,7 @@ class HomeAppBar extends StatelessWidget {
           },
           child: CircleAvatar(
             radius: 35.r,
-            backgroundImage: Image.asset("assets/images/person.jpg").image,
+            backgroundImage: EditModel.image,
           ),
         )
       ],

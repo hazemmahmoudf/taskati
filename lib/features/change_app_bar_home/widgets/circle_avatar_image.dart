@@ -6,6 +6,7 @@ import 'package:taskati/core/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:taskati/features/change_app_bar_home/models/edit_model.dart';
 
 import 'package:taskati/features/change_app_bar_home/widgets/button_sheet_take_photo.dart';
 class CircleAvatarImage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _CircleAvatarImageState extends State<CircleAvatarImage> {
     if (image != null) {
       setState(() {
         selectedImage = File(image.path);
+        EditModel.image=FileImage(selectedImage!);
       });
     }
   }
@@ -39,10 +41,8 @@ class _CircleAvatarImageState extends State<CircleAvatarImage> {
       children: [
         CircleAvatar(
           radius: 100.r,
-          backgroundImage:  selectedImage != null
-              ? FileImage(selectedImage!)
-              : const AssetImage('assets/images/default_avatar.png') as ImageProvider,
-
+          backgroundImage: EditModel.image
+            // const AssetImage('assets/images/default_avatar.png') as ImageProvider
         ),
         InkWell(
             onTap:(){
