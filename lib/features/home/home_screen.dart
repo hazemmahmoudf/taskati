@@ -7,24 +7,43 @@ import 'package:taskati/features/home/widgets/date_add_task_row.dart';
 import 'package:taskati/features/home/widgets/home_app_bar.dart';
 import 'package:taskati/features/home/widgets/task_filter_date.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../add_task/add_task_screen.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           child: Column(
             children: [
-              HomeAppBar(),
-              SizedBox(height: 20.h,),
-              DateAddTaskRow(),
-              SizedBox(height: 20.h,),
-              TaskFilterDate(),
-              SizedBox(height: 20.h,),
-              AddTaskListView(),
+            HomeAppBar(),
+            SizedBox(
+              height: 20.h,
+            ),
+            DateAddTaskRow(onTap:  ()async {
+             await Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTaskScreen()));
+              setState(() {
+
+              });
+            },),
+            SizedBox(
+              height: 20.h,
+            ),
+            TaskFilterDate(),
+              SizedBox(
+                height: 20.h,
+              ),
+              Expanded(child: AddTaskListView()),
             ],
           ),
         ),

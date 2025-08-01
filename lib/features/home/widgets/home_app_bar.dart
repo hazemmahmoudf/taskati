@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taskati/core/Extensions/navigator_push.dart';
+import 'package:taskati/features/change_app_bar_home/change_data_in_app_bar_home.dart';
 
 import '../../../core/theme/app_colors.dart';
 
@@ -26,9 +28,14 @@ class HomeAppBar extends StatelessWidget {
             ),)
           ],
         ),
-        CircleAvatar(
-          radius: 35.r,
-          backgroundImage: Image.asset("assets/images/person.jpg").image,
+        GestureDetector(
+          onTap: (){
+            context.move(ChangeDataInAppBarHome());
+          },
+          child: CircleAvatar(
+            radius: 35.r,
+            backgroundImage: Image.asset("assets/images/person.jpg").image,
+          ),
         )
       ],
     );

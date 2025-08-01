@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taskati/features/home/models/task_model.dart';
 
 import '../../../core/theme/app_colors.dart';
 
@@ -8,16 +9,36 @@ class AddTaskListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return (TaskModel.tasks.isEmpty)?
+        Center(
+      child:ClipRRect(
+        child: Image.asset("assets/images/empty.png",fit: BoxFit.cover,),
+      ),
+    ):
+    Expanded(
       child: ListView.separated(itemBuilder: (context,index)=>IntrinsicHeight(
         child: Dismissible(key: UniqueKey(),
-        child: TaskItem()),
-      ), separatorBuilder:(context,index)=>SizedBox(height: 5.h,) , itemCount: 5),
+        background: Container(
+          color: Colors.red,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Icon(Icons.delete,color: Colors.white,),
+        ),
+        secondaryBackground: Container(
+          color: Colors.green,
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Icon(Icons.check,color: Colors.white,),
+        ),
+        child: TaskItem(taskModel:TaskModel.tasks[index])),
+      ), separatorBuilder:(context,index)=>SizedBox(height: 5.h,) , itemCount:TaskModel.tasks.length),
     );
   }
 }
+
 class TaskItem extends StatelessWidget {
-  const TaskItem({super.key});
+  final TaskModel taskModel;
+   const TaskItem({super.key, required this.taskModel,});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +46,7 @@ class TaskItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 15.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
-        color: AppColors.mainColor,
+        color:(taskModel.taskColor==null)?AppColors.mainColor: taskModel.taskColor,
       ),
       child: Row(
         children: [
@@ -33,7 +54,7 @@ class TaskItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Flutter Task - 1",style: TextStyle(
+                Text(taskModel.title??"",style: TextStyle(
                     fontSize: 17.sp,
                     color: Colors.white,
                     fontWeight: FontWeight.bold
@@ -43,7 +64,7 @@ class TaskItem extends StatelessWidget {
                   children: [
                     Icon(Icons.alarm,color: Colors.white,),
                     SizedBox(width: 5.w,),
-                    Text("02:25 AM - 02:40 AM",style: TextStyle(
+                    Text("${taskModel.startTime} - ${taskModel.endTime}",style: TextStyle(
                       fontSize: 17.sp,
                       color: Colors.white,
 
@@ -51,7 +72,7 @@ class TaskItem extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10.h,),
-                Text("i will do this task",style: TextStyle(
+                Text(taskModel.description??"",style: TextStyle(
                     fontSize: 20.sp,
                     color: Colors.white,
                     fontWeight: FontWeight.w600
@@ -63,7 +84,7 @@ class TaskItem extends StatelessWidget {
             thickness: 2,
           ),
 
-          RotatedBox(quarterTurns: 3,child: Text("ToDo",style: TextStyle(
+          RotatedBox(quarterTurns: 3,child: Text(taskModel.status??"",style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
               fontSize: 18.sp

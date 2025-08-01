@@ -5,23 +5,24 @@ import 'package:taskati/core/theme/app_colors.dart';
 import 'package:taskati/features/add_task/add_task_screen.dart';
 
 class DateAddTaskRow extends StatelessWidget {
-  const DateAddTaskRow({super.key});
+  final void Function()? onTap;
+  const DateAddTaskRow({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
+    List<String>months=["january","February","March","April","May","June",
+      "July","August","September","October","November","December"];
     return
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("October 30,2024 \nTo Day",style:
+          Text("${months[DateTime.now().month-1]} ${DateTime.now().day},${DateTime.now().year} \nTo Day",style:
             TextStyle(
               fontSize: 20.sp,
               fontWeight: FontWeight.bold
             ),),
           InkWell(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTaskScreen()));
-            },
+            onTap:onTap,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
               decoration: BoxDecoration(
