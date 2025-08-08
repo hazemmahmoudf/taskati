@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:taskati/core/theme/app_colors.dart';
+import 'package:taskati/core/services/local/user_services.dart';
 import 'package:taskati/features/home/widgets/add_task_list_view.dart';
 import 'package:taskati/features/home/widgets/date_add_task_row.dart';
 import 'package:taskati/features/home/widgets/home_app_bar.dart';
@@ -17,6 +17,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState(){
+    super.initState();
+    UserServices.getUSerData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

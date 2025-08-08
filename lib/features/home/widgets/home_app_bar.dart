@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskati/core/Extensions/navigator_push.dart';
-import 'package:taskati/features/change_app_bar_home/change_data_in_app_bar_home.dart';
-import 'package:taskati/features/change_app_bar_home/models/edit_model.dart';
 
+
+
+import '../../../core/services/local/user_services.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../profile/profile_screen.dart';
 
 class HomeAppBar extends StatefulWidget {
   const HomeAppBar({super.key});
@@ -15,13 +19,7 @@ class HomeAppBar extends StatefulWidget {
 }
 
 class _HomeAppBarState extends State<HomeAppBar> {
-  @override
-  void didChangeDependencies() {
-    setState(() {
-
-    });
-    super.didChangeDependencies();
-  }
+  late final user = UserServices.getUSerData();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -30,7 +28,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Hello, ${EditModel.name}",style: TextStyle(
+            Text("Hello, ${user?.name??"-------"}",style: TextStyle(
                 fontSize: 18.sp,
                 color: AppColors.mainColor,
                 fontWeight: FontWeight.bold
@@ -42,15 +40,23 @@ class _HomeAppBarState extends State<HomeAppBar> {
           ],
         ),
         GestureDetector(
-          onTap: (){
-            context.move(ChangeDataInAppBarHome());
+          onTap: ()async{
+            await Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
+            setState(() {
+
+            });
           },
           child: CircleAvatar(
             radius: 35.r,
-            backgroundImage: EditModel.image,
-          ),
+         backgroundImage:
+              FileImage(File(user?.image??""))
+
+
+    ),
+
         )
       ],
     );
   }
 }
+

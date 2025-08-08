@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskati/core/widgets/button_widget.dart';
-import 'package:taskati/features/add_task/widgets/circular_icon_with_background.dart';
+import 'package:taskati/features/add_task/widgets/select_task_color.dart';
 import 'package:taskati/features/add_task/widgets/label_widget.dart';
-import 'package:taskati/features/add_task/widgets/text_form_field.dart';
+import 'package:taskati/features/add_task/widgets/text_form_field_with_title.dart';
 import 'package:taskati/features/home/home_screen.dart';
 import 'package:taskati/features/home/models/task_model.dart';
 
