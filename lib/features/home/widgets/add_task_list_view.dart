@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taskati/core/services/local/tasks_services.dart';
 import 'package:taskati/features/home/models/task_model.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -27,9 +28,11 @@ class _AddTaskListViewState extends State<AddTaskListView> {
           confirmDismiss: (d)async{
           setState(() {
             if (d == DismissDirection.endToStart) {
-              TaskModel.tasks[index].status = "complete";
+              TasksServices.updateTask(TaskModel.tasks[index], index);
+              TaskModel.tasks[index].status="Complete";
             } else if (d == DismissDirection.startToEnd) {
               TaskModel.tasks.remove(TaskModel.tasks[index]);
+              TasksServices.deleteTask(index);
             }
           });
           return null;
@@ -64,8 +67,9 @@ class TaskItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 15.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
-        color:(taskModel.taskColor==null)?AppColors.mainColor: taskModel.taskColor,
+        color: Color(taskModel.taskColor), // Use the color from the task model or default to main color
       ),
+
       child: Row(
         children: [
           Expanded(

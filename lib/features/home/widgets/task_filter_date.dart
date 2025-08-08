@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:taskati/core/theme/app_colors.dart';
+import 'package:taskati/features/home/models/filter_model.dart';
 
 
 
@@ -16,6 +17,22 @@ class TaskFilterDate extends StatefulWidget {
 
 class _TaskFilterDateState extends State<TaskFilterDate> {
   int selectIndex = 0;
+  List<FilterModel> filterList = [
+    FilterModel(day:" ${DateTime.now().day}",
+    month: FilterModel.months[DateTime.now().month-1],
+    weekDay: FilterModel.dayWeeks [DateTime.now().weekday-1],
+      date: "${DateTime.now().year}/${DateTime.now().month}/${DateTime.now().day}"
+    ),  FilterModel(day:" ${DateTime.now().add(Duration(days: -1)).day}",
+    month: FilterModel.months[DateTime.now().add(Duration(days: -1)).month-1],
+    weekDay: FilterModel.dayWeeks [DateTime.now().add(Duration(days: -1)).weekday-1],
+    ),  FilterModel(day:" ${DateTime.now().add(Duration(days: -2)).day}",
+    month: FilterModel.months[DateTime.now().add(Duration(days: -2)).month-1],
+    weekDay: FilterModel.dayWeeks [DateTime.now().add(Duration(days: -2)).weekday-1],
+    ),  FilterModel(day:" ${DateTime.now().add(Duration(days: -3)).day}",
+    month: FilterModel.months[DateTime.now().add(Duration(days: -3)).month-1],
+    weekDay: FilterModel.dayWeeks [DateTime.now().add(Duration(days: -3)).weekday-1],
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +42,16 @@ class _TaskFilterDateState extends State<TaskFilterDate> {
         setState(() {
           selectIndex = index;
         });
-      },isActive:(index==selectIndex))
+      },isActive:(index==selectIndex), filterModel: filterList[index],)
       )],
     );
   }
 }
 class DateFilterItem extends StatelessWidget {
   final bool isActive;
-
   final void Function()? onTap;
-
-   const DateFilterItem({super.key, this.isActive=false,  this.onTap,});
+  final FilterModel filterModel;
+   const DateFilterItem({super.key, this.isActive=false,  this.onTap, required this.filterModel, });
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +67,19 @@ class DateFilterItem extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Text("Aug",style: TextStyle(
+              Text(filterModel.month,style: TextStyle(
                 fontSize: 18.sp,
                 color:(isActive)?Colors.white:Colors.black,
                   fontWeight: FontWeight.w500
               ),),
               SizedBox(height: 5.h,),
-              Text("8",style: TextStyle(
+              Text(filterModel.day,style: TextStyle(
                 fontSize: 19.sp,
                   color:(isActive)?Colors.white:Colors.black,
                 fontWeight: FontWeight.bold
               ),),
               SizedBox(height: 5.h,),
-              Text("fri",style: TextStyle(
+              Text(filterModel.weekDay,style: TextStyle(
                 fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
                 color:(isActive)?Colors.white:Colors.black,

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:taskati/core/services/local/tasks_services.dart';
 import 'package:taskati/core/services/local/user_services.dart';
 import 'package:taskati/features/home/widgets/add_task_list_view.dart';
 import 'package:taskati/features/home/widgets/date_add_task_row.dart';
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState(){
     super.initState();
     UserServices.getUSerData();
+    TasksServices.getAllTasks();
   }
   @override
   Widget build(BuildContext context) {

@@ -164,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 children: [
                   Expanded(child: Text(
-                    (nameController.text.isEmpty)?"hazem":nameController.text
+                    (UserServices.getUSerData()?.name==null)?"hazem":UserServices.getUSerData()!.name
                     ,maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

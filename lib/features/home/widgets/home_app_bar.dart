@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:taskati/core/Extensions/navigator_push.dart';
 
 
 
 import '../../../core/services/local/user_services.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../profile/models/user_model.dart';
 import '../../profile/profile_screen.dart';
 
 class HomeAppBar extends StatefulWidget {
@@ -19,7 +19,14 @@ class HomeAppBar extends StatefulWidget {
 }
 
 class _HomeAppBarState extends State<HomeAppBar> {
-  late final user = UserServices.getUSerData();
+  UserModel? user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = UserServices.getUSerData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,7 +35,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Hello, ${user?.name??"-------"}",style: TextStyle(
+            Text("Hello, ${user?.name??"hazem"}",style: TextStyle(
                 fontSize: 18.sp,
                 color: AppColors.mainColor,
                 fontWeight: FontWeight.bold
@@ -43,7 +50,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
           onTap: ()async{
             await Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen()));
             setState(() {
-
+              user = UserServices.getUSerData();
             });
           },
           child: CircleAvatar(

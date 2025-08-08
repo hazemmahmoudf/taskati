@@ -8,6 +8,7 @@ import 'package:taskati/features/add_task/widgets/text_form_field_with_title.dar
 import 'package:taskati/features/home/home_screen.dart';
 import 'package:taskati/features/home/models/task_model.dart';
 
+import '../../core/services/local/tasks_services.dart';
 import '../../core/theme/app_colors.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -146,9 +147,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
              startTime: startTime??"12:00 PM",
              endTime: endTime??"01:00 PM",
              status: "Todo",
-             taskColor: userColor,
-             date:date
+             date:date,
+             taskColor: userColor?.toARGB32()?? AppColors.mainColor.toARGB32(),
            ));
+           TasksServices.storeTask(TaskModel.tasks.last);
            Navigator.pop(context);
          }
 
